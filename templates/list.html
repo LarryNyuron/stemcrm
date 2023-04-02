@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список учеников</title>
+</head>
+<body>
+    <h1>Список учеников</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Имя ученика</th>
+                <th>Присутствие</th>
+                <th>Тема занятия</th>
+                <th>Удалить ученика</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student[0] }}</td>
+                <td>{{ 'Был' if student[1] else 'Не был' }}</td>
+                <td>{{ student[2] }}</td>
+                <td>
+                    <form action="/delete_student" method="POST">
+                        <input type="hidden" name="student_name" value="{{ student[0] }}">
+                        <button type="submit">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Добавить нового ученика</h2>
+    <form action="/add_student" method="POST">
+        <label>Имя:</label>
+        <input type="text" name="student_name" required>
+        <button type="submit">Добавить</button>
+    </form>
+    <h2>Отметить присутствие ученика</h2>
+    <form action="/mark_presence" method="POST">
+        <label>Имя:</label&g
